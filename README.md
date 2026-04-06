@@ -24,6 +24,8 @@ User pastes prompt into AI (Claude, ChatGPT, etc.)
 - **1 profile = 1 server** — each profile runs independently
 - **Persistent sessions** — login once, sessions are saved in the profile
 
+> **Note:** Always close the browser from Saola Dock (Stop button), not by clicking the X on Chrome. Closing Chrome directly won't properly shut down the server process.
+
 ## API
 
 All commands go through `POST http://127.0.0.1:<port>/action` with JSON body:
