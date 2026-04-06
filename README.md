@@ -1,6 +1,8 @@
-# Tauri + React + Typescript
+# Saola Dock
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+A browser profile manager built with Tauri, React, and TypeScript. Create, manage, and launch isolated Chromium profiles with persistent sessions.
+
+![Saola Dock](assets/screenshot.png)
 
 ## Recommended IDE Setup
 
