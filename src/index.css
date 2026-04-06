@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+/* ── Light mode (default) ── */
+:root {
+  --app-bg: #f5f5f7;
+  --app-bg-gradient: radial-gradient(ellipse at top, rgba(99,102,241,0.06), transparent 50%);
+  --surface-base: rgba(255,255,255,0.72);
+  --surface-elevated: rgba(255,255,255,0.85);
+  --surface-hover: rgba(0,0,0,0.03);
+  --surface-active: rgba(0,0,0,0.05);
+
+  --card-bg: rgba(255,255,255,0.65);
+  --card-border: rgba(0,0,0,0.06);
+  --card-hover: rgba(255,255,255,0.90);
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.03);
+  --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+
+  --border-hairline: rgba(0,0,0,0.08);
+  --border-subtle: rgba(0,0,0,0.04);
+
+  --text-primary: rgba(0,0,0,0.88);
+  --text-secondary: rgba(0,0,0,0.55);
+  --text-tertiary: rgba(0,0,0,0.38);
+  --text-muted: rgba(0,0,0,0.22);
+
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-soft: rgba(99,102,241,0.10);
+  --accent-glow: rgba(99,102,241,0.12);
+  --accent-gradient: linear-gradient(135deg, #6366f1, #8b5cf6);
+
+  --success: #16a34a;
+  --success-muted: rgba(22,163,74,0.08);
+  --error: #dc2626;
+  --error-muted: rgba(220,38,38,0.08);
+
+  --scrollbar-thumb: rgba(0,0,0,0.10);
+  --scrollbar-thumb-hover: rgba(0,0,0,0.18);
+  --backdrop: blur(20px) saturate(1.4);
+
+  color-scheme: light;
+}
+
+/* ── Dark mode ── */
+[data-theme="dark"] {
+  --app-bg: #0c0c0e;
+  --app-bg-gradient: radial-gradient(ellipse at top, rgba(99,102,241,0.10), transparent 50%);
+  --surface-base: rgba(24,24,28,0.72);
+  --surface-elevated: rgba(34,34,38,0.80);
+  --surface-hover: rgba(255,255,255,0.04);
+  --surface-active: rgba(255,255,255,0.06);
+
+  --card-bg: rgba(255,255,255,0.03);
+  --card-border: rgba(255,255,255,0.06);
+  --card-hover: rgba(255,255,255,0.06);
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.02);
+  --card-shadow-hover: 0 4px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+
+  --border-hairline: rgba(255,255,255,0.06);
+  --border-subtle: rgba(255,255,255,0.04);
+
+  --text-primary: rgba(255,255,255,0.92);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-tertiary: rgba(255,255,255,0.35);
+  --text-muted: rgba(255,255,255,0.20);
+
+  --accent: #818cf8;
+  --accent-hover: #a5b4fc;
+  --accent-soft: rgba(129,140,248,0.12);
+  --accent-glow: rgba(129,140,248,0.15);
+  --accent-gradient: linear-gradient(135deg, #6366f1, #818cf8);
+
+  --success: #22c55e;
+  --success-muted: rgba(34,197,94,0.10);
+  --error: #ef4444;
+  --error-muted: rgba(239,68,68,0.10);
+
+  --scrollbar-thumb: rgba(255,255,255,0.08);
+  --scrollbar-thumb-hover: rgba(255,255,255,0.14);
+  --backdrop: blur(20px) saturate(1.2);
+
+  color-scheme: dark;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+  background: var(--app-bg);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
+
+button, input, textarea, select {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
