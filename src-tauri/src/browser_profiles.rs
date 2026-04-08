@@ -311,14 +311,27 @@ pub fn browser_profile_connect(id: String) -> Result<String, String> {
         .arg(&id)
         .arg(&profile.name)
         .stdout(std::process::Stdio::piped())
-        .stderr(std::process::Stdio::null())
+        .stderr(std::process::Stdio::piped())
         .spawn()
         .map_err(|e| format!("Failed to start browser server. node='{}', error: {}", node_bin, e))?;
 
+    let stderr = child.stderr.take();
     let stdout = child.stdout.take().ok_or("No stdout from browser server")?;
     let mut reader = std::io::BufReader::new(stdout);
     let mut line = String::new();
     reader.read_line(&mut line).map_err(|e| e.to_string())?;
+
+    if line.trim().is_empty() {
+        let mut err_msg = String::new();
+        if let Some(mut err) = stderr {
+            use std::io::Read;
+            let _ = err.read_to_string(&mut err_msg);
+        }
+        return Err(format!(
+            "Browser server exited without output. stderr: {}",
+            if err_msg.trim().is_empty() { "(empty)" } else { err_msg.trim() }
+        ));
+    }
 
     let info: serde_json::Value = serde_json::from_str(line.trim())
         .map_err(|e| format!("Bad server output '{}': {}", line.trim(), e))?;
