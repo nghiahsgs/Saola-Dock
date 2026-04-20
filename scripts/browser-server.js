@@ -11,6 +11,7 @@
  */
 
 import puppeteer from 'puppeteer';
+import { install, detectBrowserPlatform, Browser, resolveBuildId } from '@puppeteer/browsers';
 import http from 'http';
 import fs from 'fs';
 import os from 'os';
@@ -31,7 +32,29 @@ const SERVER_FILE = path.join(STATE_DIR, `.server-${profileId}.json`);
 
 let browser, page;
 
+/** Ensure Puppeteer's Chrome is installed; auto-install on first run if missing. */
+async function ensureChrome() {
+  try {
+    const p = puppeteer.executablePath();
+    if (fs.existsSync(p)) return;
+  } catch {}
+
+  const platform = detectBrowserPlatform();
+  const cacheDir = path.join(os.homedir(), '.cache', 'puppeteer');
+  // Resolve the exact buildId Puppeteer expects for this version
+  let buildId;
+  try {
+    buildId = puppeteer.configuration?.browserRevision
+      || await resolveBuildId(Browser.CHROME, platform, 'stable');
+  } catch {
+    buildId = await resolveBuildId(Browser.CHROME, platform, 'stable');
+  }
+  console.error(JSON.stringify({ ready: false, progress: `Installing Chrome ${buildId}...` }));
+  await install({ browser: Browser.CHROME, buildId, cacheDir });
+}
+
 async function launchBrowser() {
+  await ensureChrome();
   browser = await puppeteer.launch({
     headless: false,
     userDataDir: profileDir,
