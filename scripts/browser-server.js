@@ -10,7 +10,7 @@
  * Outputs: {"ready":true,"port":XXXX,"pid":XXXX} on stdout when ready
  */
 
-import puppeteer from 'puppeteer';
+import puppeteer, { PUPPETEER_REVISIONS } from 'puppeteer';
 import { install, detectBrowserPlatform, Browser, resolveBuildId } from '@puppeteer/browsers';
 import http from 'http';
 import fs from 'fs';
