@@ -41,12 +41,11 @@ async function ensureChrome() {
 
   const platform = detectBrowserPlatform();
   const cacheDir = path.join(os.homedir(), '.cache', 'puppeteer');
-  // Resolve the exact buildId Puppeteer expects for this version
-  let buildId;
-  try {
-    buildId = puppeteer.configuration?.browserRevision
-      || await resolveBuildId(Browser.CHROME, platform, 'stable');
-  } catch {
+  // Use the exact Chrome buildId this Puppeteer version is pinned to —
+  // otherwise install downloads "stable" (e.g. 149.x) but launch() looks for
+  // the pinned version (e.g. 146.x) and fails with "Could not find Chrome".
+  let buildId = PUPPETEER_REVISIONS?.chrome;
+  if (!buildId) {
     buildId = await resolveBuildId(Browser.CHROME, platform, 'stable');
   }
   console.error(JSON.stringify({ ready: false, progress: `Installing Chrome ${buildId}...` }));
